@@ -2,31 +2,26 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TbahanbakuResource\Pages;
-use App\Filament\Resources\TbahanbakuResource\RelationManagers;
-use App\Models\tbahanbaku;
+use App\Filament\Resources\TBahanBakuResource\Pages;
+use App\Models\TBahanBaku;
+use App\Imports\TBahanBakuImport;
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Forms\Components\FileUpload;
+use Illuminate\Support\Facades\Storage;
+use Filament\Notifications\Notification;
 
-class TbahanbakuResource extends Resource
+class TBahanBakuResource extends Resource
 {
-    protected static ?string $model = tbahanbaku::class;
-
+    protected static ?string $model = TBahanBaku::class;
+    protected static ?string $navigationLabel = 'Daftar Bahan Baku';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function getModelLabel(): string
-    {
-        return 'Bahan Baku'; 
-    }
-    public static function getPluralModelLabel(): string
-    {
-        return 'Bahan Baku'; 
-    }
+    protected static ?string $navigationGroup = 'Data Bahan Baku';
 
     public static function form(Form $form): Form
     {
@@ -59,13 +54,50 @@ class TbahanbakuResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kode_bahan_baku')->label('Kode Bahan Baku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('nama_bahan_baku')->label('Nama Bahan Baku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('stok_bahan_baku')->label('Stok Bahan Baku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('satuan_bahan_baku')->label('Satuan Bahan Baku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('tanggal_kadaluarsa_bahan_baku')->label('Tanggal Kadaluarsa Bahan Baku')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kode_bahan_baku')
+                    ->label('Kode Bahan Baku')
+                    ->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('nama_bahan_baku')
+                    ->label('Nama Bahan Baku')
+                    ->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('stok_bahan_baku')
+                    ->label('Stok Bahan Baku')
+                    ->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('satuan_bahan_baku')
+                    ->label('Satuan Bahan Baku')
+                    ->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('tanggal_kadaluarsa_bahan_baku')
+                    ->label('Tanggal Kadaluarsa Bahan Baku')
+                    ->sortable()->searchable(),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make()
+            ])
+            ->headerActions([
+                Action::make('importExcel')
+                    ->label('Import Excel')
+                    ->action(function (array $data) {
+                        $filePath = storage_path('app/public/' . $data['file']);
+                        Excel::import(new TBahanBakuImport, $filePath);
+                        Notification::make()
+                            ->title('Data berhasil diimpor!')
+                            ->success()
+                            ->send();
+                    })
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('Pilih File Excel')
+                            ->disk('public')
+                            ->directory('imports')
+                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
+                            ->required(),
+                    ])
+                    ->modalHeading('Import Data Bahan Baku')
+                    ->modalButton('Import')
+                    ->color('success'),
             ]);
     }
+
     public static function getRelations(): array
     {
         return [
@@ -76,9 +108,9 @@ class TbahanbakuResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTbahanbaku::route('/'),
-            'create' => Pages\CreateTbahanbaku::route('/create'),
-            'edit' => Pages\EditTbahanbaku::route('/{record}/edit'),
+            'index' => Pages\ListTBahanBaku::route('/'),
+            'create' => Pages\CreateTBahanBaku::route('/create'),
+            'edit' => Pages\EditTBahanBaku::route('/{record}/edit'),
         ];
     }
 }
