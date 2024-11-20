@@ -14,7 +14,7 @@ class TPengadaanBahanBakuImport implements ToModel, WithHeadingRow
         $this->rowcount++;
         if ($this->rowcount > 1) {
             return new TPengadaanBahanBaku([
-                'kode_pengadaan_bahan_baku' => $row['kode_pengadaan_bahan_baku'], // Sesuaikan dengan kolom di Excel
+                'kode_pengadaan_bahan_baku' => $row['kode_pengadaan_bahan_baku'], 
                 'subjek_pengadaan_bahan_baku' => $row['subjek_pengadaan_bahan_baku'],
                 'tanggal_pengadaan_bahan_baku' => $row['tanggal_pengadaan_bahan_baku'],
                 'waktu_pengadaan_bahan_baku' => $row['waktu_pengadaan_bahan_baku'],
