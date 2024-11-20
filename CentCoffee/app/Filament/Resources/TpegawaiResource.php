@@ -3,14 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TpegawaiResource\Pages;
-use App\Filament\Resources\TpegawaiResource\RelationManagers;
 use App\Models\tpegawai;
+use App\Imports\TPegawaiImport; 
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Forms\Components\FileUpload;
+use Filament\Notifications\Notification;
 
 class TpegawaiResource extends Resource
 {
@@ -34,19 +37,19 @@ class TpegawaiResource extends Resource
                 Forms\Components\TextInput::make('kode_pegawai')
                     ->required()
                     ->maxLength(15),
-                    Forms\Components\TextInput::make('kata_sandi')
+                Forms\Components\TextInput::make('kata_sandi')
                     ->required()
                     ->maxLength(100),
-                    Forms\Components\TextInput::make('nama_pegawai')
+                Forms\Components\TextInput::make('nama_pegawai')
                     ->required()
                     ->maxLength(50),
-                    Forms\Components\Select::make('jenis_kelamin_pegawai')
+                Forms\Components\Select::make('jenis_kelamin_pegawai')
                     ->options([
                         'L' => 'Laki-laki',
                         'P' => 'Perempuan',
                     ])
                     ->required(),
-                    Forms\Components\TextInput::make('kode_otoritas')
+                Forms\Components\TextInput::make('kode_otoritas')
                     ->required()
                     ->maxLength(15),
             ]);
@@ -62,14 +65,45 @@ class TpegawaiResource extends Resource
                 Tables\Columns\TextColumn::make('jenis_kelamin_pegawai')->label('Jenis Kelamin Pegawai')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kode_otoritas')->label('Kode Otoritas')->sortable()->searchable(),
             ])
-            ->filters([]);
+            ->filters([])
+            ->headerActions([
+                Action::make('importExcel')
+                    ->label('Import Excel')
+                    ->action(function (array $data) {
+                        $filePath = storage_path('app/public/' . $data['file']);
+
+                        Excel::import(new TPegawaiImport, $filePath);
+
+                        Notification::make()
+                            ->title('Data Pegawai berhasil diimpor!')
+                            ->success()
+                            ->send();
+                    })
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('Pilih File Excel')
+                            ->disk('public') 
+                            ->directory('imports') 
+                            ->acceptedFileTypes([
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                'application/vnd.ms-excel',
+                            ])
+                            ->required(),
+                    ])
+                    ->modalHeading('Import Data Pegawai')
+                    ->modalButton('Import')
+                    ->color('success'),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

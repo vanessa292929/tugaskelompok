@@ -3,14 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TpesananResource\Pages;
-use App\Filament\Resources\TpesananResource\RelationManagers;
 use App\Models\tpesanan;
+use App\Imports\TPesananImport; 
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Forms\Components\FileUpload;
+use Filament\Notifications\Notification;
 
 class TpesananResource extends Resource
 {
@@ -32,52 +35,43 @@ class TpesananResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('kode_pesanan')
-                ->label('Kode Pesanan')
+                    ->label('Kode Pesanan')
                     ->required(),
-
-                    Forms\Components\DatePicker::make('tanggal_pesanan')
+                Forms\Components\DatePicker::make('tanggal_pesanan')
                     ->label('Tanggal Pesanan')
                     ->required()
                     ->displayFormat('d/m/Y'),
-
-                    Forms\Components\TimePicker::make('waktu_pesanan')
+                Forms\Components\TimePicker::make('waktu_pesanan')
                     ->label('Waktu Pesanan')
                     ->required()
                     ->displayFormat('h:i A'),
-
-                    Forms\Components\TextInput::make('pembeli_pesanan')
+                Forms\Components\TextInput::make('pembeli_pesanan')
                     ->label('Pembeli Pesanan')
                     ->required()
                     ->maxLength(50),
-
-                    Forms\Components\TextInput::make('catatan_pesanan')
+                Forms\Components\TextInput::make('catatan_pesanan')
                     ->label('Catatan Pesanan')
                     ->nullable(),
-
-                    Forms\Components\TextInput::make('harga_pesanan')
+                Forms\Components\TextInput::make('harga_pesanan')
                     ->label('Harga Pesanan')
                     ->required()
                     ->maxLength(50),
-
-                    Forms\Components\TextInput::make('tunai_pesananan')
+                Forms\Components\TextInput::make('tunai_pesananan')
                     ->label('Tunai Pesanan')
                     ->required()
                     ->maxLength(50),
-
-                    Forms\Components\Select::make('status_pesanan')
+                Forms\Components\Select::make('status_pesanan')
                     ->label('Status Pesanan')
                     ->options([
-                    //    'C' => 'Completed',
                         'P' => 'Pending',
-                      //  'T' => 'Taken',
                         'D' => 'Delivered',
                     ])
                     ->required(),
-                    Forms\Components\TextInput::make('kode_pegawai')
+                Forms\Components\TextInput::make('kode_pegawai')
                     ->label('Kode Pegawai')
                     ->required()
                     ->maxLength(15),
-                    Forms\Components\TextInput::make('kode_perangkat')
+                Forms\Components\TextInput::make('kode_perangkat')
                     ->label('Kode Perangkat')
                     ->required()
                     ->maxLength(15),
@@ -94,14 +88,48 @@ class TpesananResource extends Resource
                 Tables\Columns\TextColumn::make('pembeli_pesanan')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('catatan_pesanan')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('harga_pesanan')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('tunai_pesananan')->sortable()->searchable()
-                ->label('Tunai Pesanan'),
-
+                Tables\Columns\TextColumn::make('tunai_pesananan')
+                    ->sortable()
+                    ->searchable()
+                    ->label('Tunai Pesanan'),
                 Tables\Columns\TextColumn::make('status_pesanan')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kode_pegawai')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kode_perangkat')->sortable()->searchable(),
             ])
-            ->filters([]);
+            ->filters([])
+            ->headerActions([
+                Action::make('importExcel')
+                    ->label('Import Excel')
+                    ->action(function (array $data) {
+                        $filePath = storage_path('app/public/' . $data['file']);
+
+                        Excel::import(new TPesananImport, $filePath);
+
+                        Notification::make()
+                            ->title('Data Pesanan berhasil diimpor!')
+                            ->success()
+                            ->send();
+                    })
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('Pilih File Excel')
+                            ->disk('public') 
+                            ->directory('imports') 
+                            ->acceptedFileTypes([
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                'application/vnd.ms-excel',
+                            ])
+                            ->required(),
+                    ])
+                    ->modalHeading('Import Data Pesanan')
+                    ->modalButton('Import')
+                    ->color('success'),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getPages(): array
