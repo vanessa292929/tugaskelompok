@@ -14,7 +14,6 @@ class tpegawai extends Model
         'kata_sandi', 
         'nama_pegawai', 
         'jenis_kelamin_pegawai', 
-        'kode_otoritas'
     ];
 
     protected $primaryKey = 'kode_pegawai';

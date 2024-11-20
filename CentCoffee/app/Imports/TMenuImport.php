@@ -14,7 +14,7 @@ class TMenuImport implements ToModel, WithHeadingRow
         $this->rowcount++;
         if ($this->rowcount > 1) {
             return new TMenu([
-                'kode_menu' => $row['kode_menu'], // Sesuaikan dengan kolom di Excel
+                'kode_menu' => $row['kode_menu'],
                 'nama_menu' => $row['nama_menu'],
                 'jenis_menu' => $row['jenis_menu'],
                 'harga_menu' => $row['harga_menu'],
