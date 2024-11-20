@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Filament\Forms\Components\FileUpload;
 use Filament\Notifications\Notification;
 
-class TMenuResource extends Resource
+class TmenuResource extends Resource
 {
     protected static ?string $model = TMenu::class;
     protected static ?string $navigationLabel = 'Daftar Menu';

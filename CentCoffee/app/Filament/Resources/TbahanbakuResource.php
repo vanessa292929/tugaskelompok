@@ -16,7 +16,7 @@ use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Facades\Storage;
 use Filament\Notifications\Notification;
 
-class TBahanBakuResource extends Resource
+class TbahanbakuResource extends Resource
 {
     protected static ?string $model = TBahanBaku::class;
     protected static ?string $navigationLabel = 'Daftar Bahan Baku';
