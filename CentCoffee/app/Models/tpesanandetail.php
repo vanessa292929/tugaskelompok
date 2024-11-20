@@ -14,9 +14,7 @@ class tpesanandetail extends Model
         'kode_menu',
         'kode_pesanan', 
         'jumlah_pesanan_detail', 
-        'status_pesanan_detail', 
-        
-        
+        'status_pesanan_detail',     
     ];
 
     protected $primaryKey = 'kode_pesanan_detail';
