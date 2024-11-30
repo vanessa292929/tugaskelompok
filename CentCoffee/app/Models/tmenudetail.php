@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tmenudetail extends Model
+class Tmenudetail extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'kode_menu_detail';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'kode_menu_detail',
@@ -16,6 +20,19 @@ class tmenudetail extends Model
         'kode_bahan_baku',
     ];
 
-    protected $primaryKey = 'kode_menu_detail';
-    public $incrementing = false;
+    /**
+     * Relasi ke tabel Tmenu
+     */
+    public function menu()
+    {
+        return $this->belongsTo(Tmenu::class, 'kode_menu', 'kode_menu');
+    }
+
+    /**
+     * Relasi ke tabel Tbahanbaku
+     */
+    public function bahanBaku()
+    {
+        return $this->belongsTo(Tbahanbaku::class, 'kode_bahan_baku', 'kode_bahan_baku');
+    }
 }

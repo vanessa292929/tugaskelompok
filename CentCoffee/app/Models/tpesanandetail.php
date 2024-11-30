@@ -19,4 +19,9 @@ class tpesanandetail extends Model
 
     protected $primaryKey = 'kode_pesanan_detail';
     public $incrementing = false;
+
+    public function menu()
+    {
+        return $this->belongsTo(tmenu::class, 'kode_menu', 'kode_menu');
+    }
 }

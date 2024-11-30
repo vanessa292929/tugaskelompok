@@ -11,6 +11,9 @@ class TPesananImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        if (tpesanan::find($row['kode_pesanan'])) {
+            return null; // Abaikan data yang sudah ada
+        }
         return new tpesanan([
             'kode_pesanan' => $row['kode_pesanan'],
             'nama_menu' => $row['nama_menu'], // Kolom nama menu
