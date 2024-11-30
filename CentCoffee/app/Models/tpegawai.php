@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class tpegawai extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'kode_pegawai', 
-        'kata_sandi', 
-        'nama_pegawai', 
-        'jenis_kelamin_pegawai', 
+        'kode_pegawai',
+        'kata_sandi',
+        'nama_pegawai',
+        'jenis_kelamin_pegawai',
     ];
 
     protected $primaryKey = 'kode_pegawai';

@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class tpengadaanbahanbaku extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'kode_pengadaan_bahan_baku', 
-        'subjek_pengadaan_bahan_baku', 
-        'tanggal_pengadaan_bahan_baku', 
-        'waktu_pengadaan_bahan_baku', 
+        'kode_pengadaan_bahan_baku',
+        'subjek_pengadaan_bahan_baku',
+        'tanggal_pengadaan_bahan_baku',
+        'waktu_pengadaan_bahan_baku',
         'catatan_pengadaan_bahan_baku',
-        'status_pengadaan_bahan_baku', 
-        'kode_prioritas', 
-        'kode_pegawai'
+        'status_pengadaan_bahan_baku',
+        'kode_pegawai',
     ];
 
     protected $primaryKey = 'kode_pengadaan_bahan_baku';

@@ -37,6 +37,10 @@ class TpesananResource extends Resource
                 Forms\Components\TextInput::make('kode_pesanan')
                     ->label('Kode Pesanan')
                     ->required(),
+                Forms\Components\Select::make('nama_menu')
+                    ->label('Menu')
+                    ->searchable()
+                    ->required(),
                 Forms\Components\DatePicker::make('tanggal_pesanan')
                     ->label('Tanggal Pesanan')
                     ->required()
@@ -71,10 +75,6 @@ class TpesananResource extends Resource
                     ->label('Kode Pegawai')
                     ->required()
                     ->maxLength(15),
-                Forms\Components\TextInput::make('kode_perangkat')
-                    ->label('Kode Perangkat')
-                    ->required()
-                    ->maxLength(15),
             ]);
     }
 
@@ -83,6 +83,7 @@ class TpesananResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('kode_pesanan')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('nama_menu')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('tanggal_pesanan')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('waktu_pesanan')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('pembeli_pesanan')->sortable()->searchable(),
@@ -94,7 +95,7 @@ class TpesananResource extends Resource
                     ->label('Tunai Pesanan'),
                 Tables\Columns\TextColumn::make('status_pesanan')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kode_pegawai')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kode_perangkat')->sortable()->searchable(),
+                
             ])
             ->filters([])
             ->headerActions([
@@ -116,8 +117,10 @@ class TpesananResource extends Resource
                             ->disk('public') 
                             ->directory('imports') 
                             ->acceptedFileTypes([
-                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                'application/vnd.ms-excel',
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                                'application/vnd.ms-excel', // .xls
+                                'application/octet-stream', // Beberapa browser membaca file sebagai octet-stream
+                                'application/vnd.ms-office' // Format umum lainnya untuk Excel
                             ])
                             ->required(),
                     ])

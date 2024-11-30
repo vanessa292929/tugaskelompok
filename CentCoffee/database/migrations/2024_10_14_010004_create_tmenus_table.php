@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('tmenus', function (Blueprint $table) {
@@ -18,17 +15,13 @@ return new class extends Migration
             $table->integer('harga_menu');
             $table->text('deskripsi_menu');
             $table->char('gambar_menu');
-            $table->char('kode_pegawai', 15);
+            $table->char('kode_pegawai', 15); // Foreign key ke tpegawais
             $table->timestamps();
 
             $table->foreign('kode_pegawai')->references('kode_pegawai')->on('tpegawais');
-
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tmenus');

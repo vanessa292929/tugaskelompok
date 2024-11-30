@@ -30,31 +30,27 @@ class TPengadaanBahanBakuResource extends Resource
                 ->required()
                 ->maxLength(15),
             Forms\Components\TextInput::make('subjek_pengadaan_bahan_baku')
-                ->label('Subjek')
+                ->label('Subjek Pengadaan')
                 ->required()
                 ->maxLength(50),
             Forms\Components\DatePicker::make('tanggal_pengadaan_bahan_baku')
-                ->label('Tanggal Pengadaan Bahan Baku')
+                ->label('Tanggal Pengadaan')
                 ->required()
                 ->displayFormat('d/m/Y'),
             Forms\Components\TimePicker::make('waktu_pengadaan_bahan_baku')
-                ->label('Waktu Pengadaan Bahan Baku')
+                ->label('Waktu Pengadaan')
                 ->required()
                 ->displayFormat('H:i'),
             Forms\Components\Textarea::make('catatan_pengadaan_bahan_baku')
-                ->label('Catatan Pengadaan Bahan Baku')
+                ->label('Catatan')
                 ->required(),
             Forms\Components\Select::make('status_pengadaan_bahan_baku')
-                ->label('Status')
+                ->label('Status Pengadaan')
                 ->required()
                 ->options([
                     'Pending' => 'Pending',
                     'Selesai' => 'Selesai',
                 ]),
-            Forms\Components\TextInput::make('kode_prioritas')
-                ->label('Kode Prioritas')
-                ->required()
-                ->maxLength(15),
             Forms\Components\TextInput::make('kode_pegawai')
                 ->label('Kode Pegawai')
                 ->required()
@@ -69,7 +65,7 @@ class TPengadaanBahanBakuResource extends Resource
                 ->label('Kode Pengadaan')
                 ->sortable()->searchable(),
             Tables\Columns\TextColumn::make('subjek_pengadaan_bahan_baku')
-                ->label('Subjek')
+                ->label('Subjek Pengadaan')
                 ->sortable()->searchable(),
             Tables\Columns\TextColumn::make('tanggal_pengadaan_bahan_baku')
                 ->label('Tanggal Pengadaan')
@@ -81,10 +77,7 @@ class TPengadaanBahanBakuResource extends Resource
                 ->label('Catatan')
                 ->sortable()->searchable(),
             Tables\Columns\TextColumn::make('status_pengadaan_bahan_baku')
-                ->label('Status')
-                ->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('kode_prioritas')
-                ->label('Kode Prioritas')
+                ->label('Status Pengadaan')
                 ->sortable()->searchable(),
             Tables\Columns\TextColumn::make('kode_pegawai')
                 ->label('Kode Pegawai')
@@ -109,7 +102,12 @@ class TPengadaanBahanBakuResource extends Resource
                         ->label('Pilih File Excel')
                         ->disk('public')
                         ->directory('imports')
-                        ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
+                        ->acceptedFileTypes([
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                            'application/vnd.ms-excel', // .xls
+                            'application/octet-stream', // Beberapa browser membaca file sebagai octet-stream
+                            'application/vnd.ms-office' // Format umum lainnya untuk Excel
+                        ])
                         ->required(),
                 ])
                 ->modalHeading('Import Data Pengadaan Bahan Baku')

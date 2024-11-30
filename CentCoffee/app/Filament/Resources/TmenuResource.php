@@ -32,8 +32,7 @@ class TmenuResource extends Resource
                     ->maxLength(15),
                 Forms\Components\TextInput::make('nama_menu')
                     ->label('Nama Menu')
-                    ->required()
-                    ->maxLength(50),
+                    ->required(),    
                 Forms\Components\Select::make('jenis_menu')
                     ->label('Jenis Menu')
                     ->options([
@@ -68,7 +67,8 @@ class TmenuResource extends Resource
                     ->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('nama_menu')
                     ->label('Nama Menu')
-                    ->sortable()->searchable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('jenis_menu')
                     ->label('Jenis Menu')
                     ->sortable()->searchable(),

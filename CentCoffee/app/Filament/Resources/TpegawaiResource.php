@@ -49,9 +49,6 @@ class TpegawaiResource extends Resource
                         'P' => 'Perempuan',
                     ])
                     ->required(),
-                Forms\Components\TextInput::make('kode_otoritas')
-                    ->required()
-                    ->maxLength(15),
             ]);
     }
 
@@ -63,7 +60,6 @@ class TpegawaiResource extends Resource
                 Tables\Columns\TextColumn::make('nama_pegawai')->label('Nama Pegawai')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kata_sandi')->label('Kata Sandi')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('jenis_kelamin_pegawai')->label('Jenis Kelamin Pegawai')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kode_otoritas')->label('Kode Otoritas')->sortable()->searchable(),
             ])
             ->filters([])
             ->headerActions([

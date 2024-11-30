@@ -13,7 +13,6 @@ use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
 use Maatwebsite\Excel\Facades\Excel;
 use Filament\Forms\Components\FileUpload;
-use Illuminate\Support\Facades\Storage;
 use Filament\Notifications\Notification;
 
 class TbahanbakuResource extends Resource
@@ -89,7 +88,13 @@ class TbahanbakuResource extends Resource
                             ->label('Pilih File Excel')
                             ->disk('public')
                             ->directory('imports')
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
+                            ->acceptedFileTypes([
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                                'application/vnd.ms-excel', // .xls
+                                'application/octet-stream', // Beberapa browser membaca file sebagai octet-stream
+                                'application/vnd.ms-office' // Format umum lainnya untuk Excel
+                            ])
+                            
                             ->required(),
                     ])
                     ->modalHeading('Import Data Bahan Baku')
