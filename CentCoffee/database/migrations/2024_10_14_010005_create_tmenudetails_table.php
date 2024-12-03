@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('tmenudetails', function (Blueprint $table) {
             $table->char('kode_menu_detail', 15)->primary();
-            $table->float('jumlah_bahan_baku_detail');
+            $table->integer('jumlah_bahan_baku_detail');
             $table->char('kode_menu', 15); // Foreign key ke tmenus
             $table->char('kode_bahan_baku', 15); // Foreign key ke tbahanbakus
             $table->timestamps();

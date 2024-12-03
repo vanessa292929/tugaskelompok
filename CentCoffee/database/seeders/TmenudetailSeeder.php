@@ -17,25 +17,25 @@ class TmenudetailSeeder extends Seeder
             // Nasi Goreng Spesial (MN001)
             [
                 'kode_menu_detail' => 'MD001',
-                'jumlah_bahan_baku_detail' => 0.2, // kg
+                'jumlah_bahan_baku_detail' => 20, // kg
                 'kode_menu' => 'MN001',
                 'kode_bahan_baku' => 'BB001', // Tepung Terigu
             ],
             [
                 'kode_menu_detail' => 'MD002',
-                'jumlah_bahan_baku_detail' => 0.1, // kg
+                'jumlah_bahan_baku_detail' => 10, // kg
                 'kode_menu' => 'MN001',
                 'kode_bahan_baku' => 'BB002', // Gula Pasir
             ],
             [
                 'kode_menu_detail' => 'MD003',
-                'jumlah_bahan_baku_detail' => 2.0, // butir
+                'jumlah_bahan_baku_detail' => 50, // butir
                 'kode_menu' => 'MN001',
                 'kode_bahan_baku' => 'BB003', // Telur Ayam
             ],
             [
                 'kode_menu_detail' => 'MD004',
-                'jumlah_bahan_baku_detail' => 0.05, // liter
+                'jumlah_bahan_baku_detail' => 20, // liter
                 'kode_menu' => 'MN001',
                 'kode_bahan_baku' => 'BB004', // Minyak Goreng
             ],
@@ -43,25 +43,25 @@ class TmenudetailSeeder extends Seeder
             // Mie Goreng Jawa (MN002)
             [
                 'kode_menu_detail' => 'MD005',
-                'jumlah_bahan_baku_detail' => 0.15, // kg
+                'jumlah_bahan_baku_detail' => 30, // kg
                 'kode_menu' => 'MN002',
                 'kode_bahan_baku' => 'BB001', // Tepung Terigu
             ],
             [
                 'kode_menu_detail' => 'MD006',
-                'jumlah_bahan_baku_detail' => 0.05, // kg
+                'jumlah_bahan_baku_detail' => 20, // kg
                 'kode_menu' => 'MN002',
                 'kode_bahan_baku' => 'BB002', // Gula Pasir
             ],
             [
                 'kode_menu_detail' => 'MD007',
-                'jumlah_bahan_baku_detail' => 1.0, // butir
+                'jumlah_bahan_baku_detail' => 50, // butir
                 'kode_menu' => 'MN002',
                 'kode_bahan_baku' => 'BB003', // Telur Ayam
             ],
             [
                 'kode_menu_detail' => 'MD008',
-                'jumlah_bahan_baku_detail' => 0.025, // liter
+                'jumlah_bahan_baku_detail' => 10, // liter
                 'kode_menu' => 'MN002',
                 'kode_bahan_baku' => 'BB004', // Minyak Goreng
             ],
@@ -69,7 +69,7 @@ class TmenudetailSeeder extends Seeder
             // Es Teh Manis (MN003)
             [
                 'kode_menu_detail' => 'MD009',
-                'jumlah_bahan_baku_detail' => 0.01, // kg
+                'jumlah_bahan_baku_detail' => 40, // kg
                 'kode_menu' => 'MN003',
                 'kode_bahan_baku' => 'BB002', // Gula Pasir
             ],
@@ -77,14 +77,18 @@ class TmenudetailSeeder extends Seeder
             // Jus Alpukat (MN004)
             [
                 'kode_menu_detail' => 'MD010',
-                'jumlah_bahan_baku_detail' => 0.1, // liter
+                'jumlah_bahan_baku_detail' => 35, // liter
                 'kode_menu' => 'MN004',
                 'kode_bahan_baku' => 'BB005', // Susu Cair
             ],
         ];
 
         foreach ($menuDetailData as $menuDetail) {
-            Tmenudetail::create($menuDetail);
+            // Pastikan untuk menambahkan data menggunakan updateOrCreate
+            Tmenudetail::updateOrCreate(
+                ['kode_menu_detail' => $menuDetail['kode_menu_detail']], // Menggunakan kode_menu_detail sebagai kunci unik
+                $menuDetail // Data yang akan disisipkan
+            );
         }
     }
 }

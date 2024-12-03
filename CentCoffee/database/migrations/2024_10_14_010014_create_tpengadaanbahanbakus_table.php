@@ -16,9 +16,13 @@ return new class extends Migration
             $table->text('catatan_pengadaan_bahan_baku');
             $table->enum('status_pengadaan_bahan_baku', ['Pending', 'Selesai']);
             $table->char('kode_pegawai', 15); // Foreign key ke tpegawais
-
+            $table->char('kode_bahan_baku', 15); // Foreign key ke tbahanbakus
+            $table->integer('jumlah_pengadaan'); // Tambahkan kolom ini
+        
             $table->foreign('kode_pegawai')->references('kode_pegawai')->on('tpegawais');
+            $table->foreign('kode_bahan_baku')->references('kode_bahan_baku')->on('tbahanbakus');
         });
+        
     }
 
     public function down(): void

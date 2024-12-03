@@ -4,8 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\tpegawai;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Tpegawai;
 
 class TpegawaiSeeder extends Seeder
 {
@@ -45,10 +44,45 @@ class TpegawaiSeeder extends Seeder
                 'nama_pegawai' => 'Michael Kim',
                 'jenis_kelamin_pegawai' => 'L',
             ],
+            // Data tambahan dengan kode unik
+            [
+                'kode_pegawai' => 'PG006',
+                'kata_sandi' => 'logistik123',
+                'nama_pegawai' => 'Emily Davis',
+                'jenis_kelamin_pegawai' => 'P',
+            ],
+            [
+                'kode_pegawai' => 'PG007',
+                'kata_sandi' => 'supervisor456',
+                'nama_pegawai' => 'Robert Wilson',
+                'jenis_kelamin_pegawai' => 'L',
+            ],
+            [
+                'kode_pegawai' => 'PG008',
+                'kata_sandi' => 'operator321',
+                'nama_pegawai' => 'Anna Taylor',
+                'jenis_kelamin_pegawai' => 'P',
+            ],
+            [
+                'kode_pegawai' => 'PG009',
+                'kata_sandi' => 'asisten654',
+                'nama_pegawai' => 'Tom Brown',
+                'jenis_kelamin_pegawai' => 'L',
+            ],
+            [
+                'kode_pegawai' => 'PG010',
+                'kata_sandi' => 'teknisi987',
+                'nama_pegawai' => 'Sophia Anderson',
+                'jenis_kelamin_pegawai' => 'P',
+            ],
         ];
 
+        // Pastikan data baru diinsert tanpa duplikasi
         foreach ($pegawaiData as $pegawai) {
-            Tpegawai::create($pegawai);
+            Tpegawai::updateOrCreate(
+                ['kode_pegawai' => $pegawai['kode_pegawai']], // Kondisi unik
+                $pegawai // Data yang akan diupdate atau disisipkan
+            );
         }
     }
 }
