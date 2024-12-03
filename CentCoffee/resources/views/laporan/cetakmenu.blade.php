@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laporan Menu</title>
+    <title>Laporan Performa Menu dan Penggunaan Bahan Baku</title>
     <style>
         table {
             width: 100%;
@@ -17,16 +17,15 @@
     </style>
 </head>
 <body>
-    <h1>Laporan Menu</h1>
+    <h1>Laporan Performa Menu dan Penggunaan Bahan Baku</h1>
     <table>
         <thead>
             <tr>
                 <th>Kode Menu</th>
                 <th>Nama Menu</th>
-                <th>Jenis Menu</th>
-                <th>Harga</th>
-                <th>Deskripsi</th>
-                <th>Kode Pegawai</th>
+                <th>Total Penjualan (IDR)</th>
+                <th>Jumlah Bahan Baku Digunakan</th>
+                <th>Jumlah Pesanan</th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +33,9 @@
                 <tr>
                     <td>{{ $menu->kode_menu }}</td>
                     <td>{{ $menu->nama_menu }}</td>
-                    <td>{{ $menu->jenis_menu == 'F' ? 'Food' : 'Drink' }}</td>
-                    <td>{{ number_format($menu->harga_menu, 2, ',', '.') }}</td>
-                    <td>{{ $menu->deskripsi_menu }}</td>
-                    <td>{{ $menu->kode_pegawai }}</td>
+                    <td>{{ number_format($menu->total_penjualan, 0, ',', '.') }}</td>
+                    <td>{{ $menu->jumlah_bahan_baku }}</td>
+                    <td>{{ $menu->jumlah_pesanan }}</td>
                 </tr>
             @endforeach
         </tbody>

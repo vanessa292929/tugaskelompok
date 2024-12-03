@@ -13,6 +13,7 @@ return new class extends Migration
             $table->integer('jumlah_bahan_baku_detail');
             $table->char('kode_menu', 15); // Foreign key ke tmenus
             $table->char('kode_bahan_baku', 15); // Foreign key ke tbahanbakus
+            $table->integer('menu_terjual')->default(0); 
             $table->timestamps();
 
             $table->foreign('kode_menu')->references('kode_menu')->on('tmenus');

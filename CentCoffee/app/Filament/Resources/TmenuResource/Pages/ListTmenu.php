@@ -6,36 +6,37 @@ use App\Filament\Resources\TmenuResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListTMenu extends ListRecords
+class ListTmenu extends ListRecords
 {
     protected static string $resource = TmenuResource::class;
 
-    protected function getHeaderActions(): array
+    protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(), // Tombol New
-            Actions\Action::make('cetak_laporan') // Tombol Cetak Laporan
-                ->label('Cetak Laporan')
+            Actions\Action::make('cetakLaporanPerformaMenu')
+                ->label('Cetak Laporan Performa Menu')
                 ->icon('heroicon-o-printer')
-                ->action(fn() => static::cetakLaporan())
-                ->requiresConfirmation()
-                ->modalHeading('Cetak Laporan Menu')
-                ->modalSubheading('Apakah Anda yakin ingin mencetak laporan menu?'),
+                ->action(fn() => $this->cetakLaporanPerformaMenu())
+                ->requiresConfirmation(),
         ];
     }
 
-    public static function cetakLaporan()
+    public function cetakLaporanPerformaMenu()
     {
-        // Ambil data menu
-        $data = \App\Models\tmenu::all();
+        $data = \App\Models\Tmenu::select(
+            'tmenus.kode_menu',
+            'tmenus.nama_menu',
+            \DB::raw('COALESCE(SUM(tpesanandetails.total_harga), 0) AS total_penjualan'),
+            \DB::raw('GROUP_CONCAT(CONCAT(tbahanbakus.nama_bahan_baku, ": ", tmenudetails.jumlah_bahan_baku_detail, " ", tbahanbakus.satuan_bahan_baku) SEPARATOR ", ") AS jumlah_bahan_baku'),
+            \DB::raw('COUNT(tpesanandetails.kode_pesanan_detail) AS jumlah_pesanan')
+        )
+        ->leftJoin('tpesanandetails', 'tmenus.kode_menu', '=', 'tpesanandetails.kode_menu')
+        ->leftJoin('tmenudetails', 'tmenus.kode_menu', '=', 'tmenudetails.kode_menu')
+        ->leftJoin('tbahanbakus', 'tmenudetails.kode_bahan_baku', '=', 'tbahanbakus.kode_bahan_baku')
+        ->groupBy('tmenus.kode_menu', 'tmenus.nama_menu')
+        ->get();
 
-        // Load view untuk cetak PDF
         $pdf = \PDF::loadView('laporan.cetakmenu', ['data' => $data]);
-
-        // Unduh file PDF
-        return response()->streamDownload(
-            fn() => print($pdf->output()),
-            'laporan-menu.pdf'
-        );
+        return response()->streamDownload(fn() => print($pdf->output()), 'laporan-performa-menu.pdf');
     }
 }

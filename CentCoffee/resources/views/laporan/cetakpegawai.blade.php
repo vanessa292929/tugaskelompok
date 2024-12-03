@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laporan Pegawai</title>
+    <title>Laporan Kinerja Pegawai dan Penjualan</title>
     <style>
         table {
             width: 100%;
@@ -14,26 +14,34 @@
             padding: 8px;
             text-align: left;
         }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h1>Laporan Pegawai</h1>
+    <h1>Laporan Kinerja Pegawai dan Penjualan</h1>
     <table>
         <thead>
             <tr>
                 <th>Kode Pegawai</th>
-                <th>Kata Sandi</th>
                 <th>Nama Pegawai</th>
-                <th>Jenis Kelamin</th>
+                <th>Jumlah Transaksi</th>
+                <th>Total Penjualan (IDR)</th>
+                <th>Menu yang Paling Banyak Terjual</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($data as $pegawai)
                 <tr>
                     <td>{{ $pegawai->kode_pegawai }}</td>
-                    <td>{{ $pegawai->kata_sandi }}</td>
                     <td>{{ $pegawai->nama_pegawai }}</td>
-                    <td>{{ $pegawai->jenis_kelamin_pegawai == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                    <td>{{ $pegawai->jumlah_transaksi }}</td>
+                    <td>{{ $pegawai->total_penjualan }}</td>
+                    <td>{{ $pegawai->menu_terbanyak}}</td>
                 </tr>
             @endforeach
         </tbody>

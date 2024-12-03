@@ -10,16 +10,16 @@ class tpesanan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'kode_pesanan',        // Kode pesanan
-        'nama_menu',           // Nama menu
-        'tanggal_pesanan',     // Tanggal pesanan
-        'waktu_pesanan',       // Waktu pesanan
-        'pembeli_pesanan',     // Nama pembeli
-        'catatan_pesanan',     // Catatan pesanan
-        'harga_pesanan',       // Harga total pesanan
-        'tunai_pesananan',     // Tunai yang diterima
-        'status_pesanan',      // Status pesanan
-        'kode_pegawai',        // Kode pegawai
+        'kode_pesanan',        
+        'nama_menu',           
+        'tanggal_pesanan',     
+        'waktu_pesanan',       
+        'pembeli_pesanan',     
+        'catatan_pesanan',    
+        'harga_pesanan',       
+        'tunai_pesananan',     
+        'status_pesanan',      
+        'kode_pegawai',        
     ];
 
     protected $primaryKey = 'kode_pesanan'; // Primary key tabel

@@ -5,23 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tpesanandetail extends Model
+class Tpesanandetail extends Model
 {
     use HasFactory;
 
+    // Kolom yang dapat diisi secara massal
     protected $fillable = [
         'kode_pesanan_detail',
         'kode_menu',
         'kode_pesanan',
         'jumlah_pesanan_detail',
         'status_pesanan_detail',
+        'total_harga', // Kolom baru yang ditambahkan
     ];
 
+    // Menentukan primary key
     protected $primaryKey = 'kode_pesanan_detail';
+
+    // Menonaktifkan auto-increment pada primary key
     public $incrementing = false;
 
+    /**
+     * Relasi ke tabel Tmenu
+     */
     public function menu()
     {
-        return $this->belongsTo(tmenu::class, 'kode_menu', 'kode_menu');
+        return $this->belongsTo(Tmenu::class, 'kode_menu', 'kode_menu');
     }
 }

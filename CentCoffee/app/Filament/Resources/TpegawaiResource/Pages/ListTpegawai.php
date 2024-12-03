@@ -10,29 +10,37 @@ class ListTpegawai extends ListRecords
 {
     protected static string $resource = TpegawaiResource::class;
 
-    protected function getHeaderActions(): array
+    protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(), // Tombol New
-            Actions\Action::make('cetak_laporan')
-                ->label('Cetak Laporan')
+            Actions\Action::make('cetakLaporanKinerjaPegawai')
+                ->label('Cetak Laporan Kinerja Pegawai dan Penjualan')
                 ->icon('heroicon-o-printer')
-                ->action(fn() => static::cetakLaporan())
-                ->requiresConfirmation()
-                ->modalHeading('Cetak Laporan Pegawai')
-                ->modalSubheading('Apakah Anda yakin ingin mencetak laporan ini?'),
+                ->action(fn() => $this->cetakLaporanKinerjaPegawai())
+                ->requiresConfirmation(),
         ];
     }
 
-    public static function cetakLaporan()
+    public function cetakLaporanKinerjaPegawai()
     {
-        // Ambil data pegawai
-        $data = \App\Models\tpegawai::all();
+        // Ambil data dari tabel yang dibutuhkan untuk laporan
+        $data = \App\Models\tpegawai::select(
+            'tpegawais.kode_pegawai',
+            'tpegawais.nama_pegawai',
+            \DB::raw('COUNT(tpesanans.kode_pegawai) AS jumlah_transaksi'),
+            \DB::raw('SUM(tpesanandetails.total_harga) AS total_penjualan'),
+            \DB::raw('MAX(menu.nama_menu) AS menu_terbanyak')  // Ini langsung menggunakan MAX
+        )
+        ->join('tpesanans', 'tpegawais.kode_pegawai', '=', 'tpesanans.kode_pegawai')
+        ->join('tpesanandetails', 'tpesanans.kode_pesanan', '=', 'tpesanandetails.kode_pesanan')
+        ->join('tmenus as menu', 'tpesanandetails.kode_menu', '=', 'menu.kode_menu')  // Pastikan join dengan tabel menu
+        ->groupBy('tpegawais.kode_pegawai', 'tpegawais.nama_pegawai')
+        ->get();
 
-        // Load view untuk cetak PDF
+        // Proses PDF dengan data yang sudah diambil
         $pdf = \PDF::loadView('laporan.cetakpegawai', ['data' => $data]);
 
-        // Unduh file PDF
-        return response()->streamDownload(fn() => print($pdf->output()), 'laporan-pegawai.pdf');
+        // Menghasilkan file PDF untuk diunduh
+        return response()->streamDownload(fn() => print($pdf->output()), 'laporan-kinerja-pegawai.pdf');
     }
 }

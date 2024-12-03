@@ -14,12 +14,14 @@ return new class extends Migration
             $table->char('kode_pesanan', 15); // Foreign key ke tpesanans
             $table->integer('jumlah_pesanan_detail');
             $table->enum('status_pesanan_detail', ['P', 'D']);
+            $table->bigInteger('total_harga'); // Gunakan bigInteger untuk total harga tanpa desimal
             $table->timestamps();
 
             $table->foreign('kode_menu')->references('kode_menu')->on('tmenus');
             $table->foreign('kode_pesanan')->references('kode_pesanan')->on('tpesanans');
         });
     }
+
 
     public function down(): void
     {

@@ -15,10 +15,10 @@ class Tpengadaanbahanbaku extends Model
         'tanggal_pengadaan_bahan_baku',
         'waktu_pengadaan_bahan_baku',
         'catatan_pengadaan_bahan_baku',
-        'status_pengadaan_bahan_baku',
-        'jumlah_pengadaan', 
+        'status_pengadaan_bahan_baku', 
         'kode_pegawai',
         'kode_bahan_baku',
+        'jumlah_pengadaan',
     ];
 
     protected $primaryKey = 'kode_pengadaan_bahan_baku';

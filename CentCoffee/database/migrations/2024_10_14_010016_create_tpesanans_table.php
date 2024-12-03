@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('kode_pegawai')
                   ->references('kode_pegawai')
                   ->on('tpegawais')
-                  ->onDelete('cascade'); // Tambahkan onDelete jika diperlukan
+                  ->onDelete('cascade'); 
 
             $table->timestamps(); // Menambahkan timestamps untuk created_at dan updated_at
         });

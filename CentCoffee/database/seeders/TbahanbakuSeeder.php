@@ -18,7 +18,7 @@ class TbahanbakuSeeder extends Seeder
             [
                 'kode_bahan_baku' => 'BB001',
                 'nama_bahan_baku' => 'Tepung Terigu',
-                'stok_bahan_baku' => 50, // This should be a valid stock quantity (50 kg)
+                'stok_bahan_baku' => 50, 
                 'satuan_bahan_baku' => 'kg',
                 'tanggal_kadaluarsa_bahan_baku' => Carbon::now()->addMonths(6)->format('Y-m-d'),
             ],
