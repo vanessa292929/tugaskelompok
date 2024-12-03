@@ -13,11 +13,14 @@ class ListTbahanbaku extends ListRecords
     protected function getActions(): array
     {
         return [
+            Actions\CreateAction::make(),
             Actions\Action::make('cetakLaporanAnalisisBahanBaku')
                 ->label('Cetak Analisis Pemakaian dan Pengadaan')
                 ->icon('heroicon-o-printer')
                 ->action(fn() => $this->cetakLaporanAnalisisBahanBaku())
-                ->requiresConfirmation(),
+                ->requiresConfirmation()
+                ->modalHeading('Cetak Laporan Analisis Bahan Baku')
+                ->modalSubheading('Apakah Anda yakin ingin mencetak laporan pesanan ini?'),
         ];
     }
 

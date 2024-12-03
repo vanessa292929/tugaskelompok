@@ -24,12 +24,23 @@ class ListTpesanan extends ListRecords
         ];
     }
 
+    public function getBulkActions(): array
+    {
+        return [
+            Actions\DeleteBulkAction::make(), // Tombol Delete
+        ];
+    }
+    public function getTableActions(): array
+    {
+        return [
+            Actions\EditAction::make(), // Tambahkan tombol Edit
+        ];
+    }
+
     public static function cetakLaporan()
     {
-        // Ambil data pesanan
         $data = \App\Models\tpesanan::all();
 
-        // Load view untuk cetak PDF
         $pdf = \PDF::loadView('laporan.cetakpesanan', ['data' => $data]);
 
         // Unduh file PDF

@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TmenudetailResource\Pages;
-use App\Models\tmenudetail;
+use App\Models\Tmenudetail;
 use App\Imports\TMenuDetailsImport;
 use Filament\Forms;
 use Filament\Tables;
@@ -18,9 +18,10 @@ use Filament\Notifications\Notification;
 
 class TmenudetailResource extends Resource
 {
-    protected static ?string $model = tmenudetail::class;
+    protected static ?string $model = Tmenudetail::class;
     protected static ?string $navigationLabel = 'Menu Detail';
-    protected static ?string $navigationIcon = 'heroicon-o-document';  // Ganti dengan ikon yang valid
+    protected static ?string $navigationIcon = 'heroicon-o-document';
+    protected static ?string $navigationGroup = 'Data Menu';
 
     public static function form(Form $form): Form
     {
@@ -28,31 +29,55 @@ class TmenudetailResource extends Resource
             Forms\Components\TextInput::make('kode_menu_detail')
                 ->label('Kode Menu Detail')
                 ->required()
-                ->maxLength(15),
+                ->maxLength(15)
+                ->unique(ignoreRecord: true),
             Forms\Components\TextInput::make('jumlah_bahan_baku_detail')
-                ->label('Jumlah Bahan Baku')
+                ->label('Jumlah Bahan Baku Detail')
                 ->required()
-                ->numeric(),
+                ->numeric()
+                ->minValue(0),
             Forms\Components\TextInput::make('kode_menu')
                 ->label('Kode Menu')
-                ->required(),
+                ->required()
+                ->maxLength(15),
             Forms\Components\TextInput::make('kode_bahan_baku')
                 ->label('Kode Bahan Baku')
                 ->required()
                 ->maxLength(15),
+            Forms\Components\TextInput::make('menu_terjual')
+                ->label('Menu Terjual')
+                ->required()
+                ->numeric()
+                ->minValue(0),
         ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table->columns([
-            Tables\Columns\TextColumn::make('kode_menu_detail')->label('Kode Menu Detail')->sortable(),
-            Tables\Columns\TextColumn::make('jumlah_bahan_baku_detail')->label('Jumlah Bahan Baku')->sortable(),
-            Tables\Columns\TextColumn::make('kode_menu')->label('Kode Menu')->sortable(),
-            Tables\Columns\TextColumn::make('kode_bahan_baku')->label('Kode Bahan Baku')->sortable(),
+            Tables\Columns\TextColumn::make('kode_menu_detail')
+                ->label('Kode Menu Detail')
+                ->sortable()
+                ->searchable(),
+            Tables\Columns\TextColumn::make('jumlah_bahan_baku_detail')
+                ->label('Jumlah Bahan Baku Detail')
+                ->sortable()
+                ->searchable(),
+            Tables\Columns\TextColumn::make('kode_menu')
+                ->label('Kode Menu')
+                ->sortable()
+                ->searchable(),
+            Tables\Columns\TextColumn::make('kode_bahan_baku')
+                ->label('Kode Bahan Baku')
+                ->sortable()
+                ->searchable(),
+            Tables\Columns\TextColumn::make('menu_terjual')
+                ->label('Menu Terjual')
+                ->sortable()
+                ->searchable(),
         ])
         ->actions([
-            EditAction::make(), // Menambahkan aksi Edit
+            EditAction::make(),
         ])
         ->headerActions([
             Action::make('importExcel')
@@ -76,6 +101,11 @@ class TmenudetailResource extends Resource
                 ->modalHeading('Import Data Menu Detail')
                 ->modalButton('Import')
                 ->color('success'),
+        ])
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]),
         ]);
     }
 

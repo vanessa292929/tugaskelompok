@@ -52,8 +52,8 @@ class TpesanandetailResource extends Resource
                 Forms\Components\TextInput::make('jumlah_pesanan_detail')
                     ->label('Jumlah Pesanan Detail')
                     ->required()
-                    ->placeholder('Kode Pesanan'),
-
+                    ->numeric()
+                    ->minValue(0),
                 Forms\Components\Select::make('status_pesanan_detail')
                     ->label('Status Pesanan Detail')
                     ->options([
@@ -61,6 +61,11 @@ class TpesanandetailResource extends Resource
                         'D' => 'Delivered',
                     ])
                     ->required(),
+                Forms\Components\TextInput::make('total_harga')
+                    ->label('Total Harga')
+                    ->required()
+                    ->numeric()
+                    ->minValue(0),
             ]);
     }
 
@@ -88,6 +93,11 @@ class TpesanandetailResource extends Resource
                     ->label('Status Pesanan Detil')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('total_harga')
+                    ->label('Total Harga')
+                    ->sortable()
+                    ->searchable()
+                    ->money('IDR', true),
             ])
             ->filters([])
             ->headerActions([

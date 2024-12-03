@@ -109,6 +109,11 @@ class TmenuResource extends Resource
                     ->modalHeading('Import Data Menu')
                     ->modalButton('Import')
                     ->color('success'),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

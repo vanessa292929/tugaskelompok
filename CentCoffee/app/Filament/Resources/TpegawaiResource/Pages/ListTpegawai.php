@@ -13,11 +13,14 @@ class ListTpegawai extends ListRecords
     protected function getActions(): array
     {
         return [
+            Actions\CreateAction::make(),
             Actions\Action::make('cetakLaporanKinerjaPegawai')
                 ->label('Cetak Laporan Kinerja Pegawai dan Penjualan')
                 ->icon('heroicon-o-printer')
                 ->action(fn() => $this->cetakLaporanKinerjaPegawai())
-                ->requiresConfirmation(),
+                ->requiresConfirmation()
+                ->modalHeading('Cetak Laporan Kinerja Pegawai')
+                ->modalSubheading('Apakah Anda yakin ingin mencetak laporan pesanan ini?'),
         ];
     }
 

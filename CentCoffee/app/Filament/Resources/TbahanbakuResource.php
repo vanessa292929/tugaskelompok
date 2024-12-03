@@ -37,7 +37,8 @@ class TbahanbakuResource extends Resource
                 Forms\Components\TextInput::make('stok_bahan_baku')
                     ->label('Stok Bahan Baku')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->minValue(0),
                 Forms\Components\TextInput::make('satuan_bahan_baku')
                     ->label('Satuan Bahan Baku')
                     ->required()
@@ -100,6 +101,11 @@ class TbahanbakuResource extends Resource
                     ->modalHeading('Import Data Bahan Baku')
                     ->modalButton('Import')
                     ->color('success'),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

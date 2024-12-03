@@ -99,6 +99,6 @@ class TmenudetailSeeder extends Seeder
                 ['kode_menu_detail' => $menuDetail['kode_menu_detail']], // Menggunakan kode_menu_detail sebagai kunci unik
                 $menuDetail // Data yang akan disisipkan
             );
-        }
-    }
+        }
+    }
 }

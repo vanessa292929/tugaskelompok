@@ -13,11 +13,14 @@ class ListTmenu extends ListRecords
     protected function getActions(): array
     {
         return [
+            Actions\CreateAction::make(),
             Actions\Action::make('cetakLaporanPerformaMenu')
                 ->label('Cetak Laporan Performa Menu')
                 ->icon('heroicon-o-printer')
                 ->action(fn() => $this->cetakLaporanPerformaMenu())
-                ->requiresConfirmation(),
+                ->requiresConfirmation()
+                ->modalHeading('Cetak Laporan Performa Menu')
+                ->modalSubheading('Apakah Anda yakin ingin mencetak laporan pesanan ini?'),
         ];
     }
 
