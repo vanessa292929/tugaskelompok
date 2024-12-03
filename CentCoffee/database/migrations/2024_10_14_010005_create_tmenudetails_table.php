@@ -16,8 +16,13 @@ return new class extends Migration
             $table->integer('menu_terjual')->default(0); 
             $table->timestamps();
 
-            $table->foreign('kode_menu')->references('kode_menu')->on('tmenus');
-            $table->foreign('kode_bahan_baku')->references('kode_bahan_baku')->on('tbahanbakus');
+            $table->foreign('kode_menu')->references('kode_menu')->on('tmenus')->onDelete('cascade');
+
+
+            $table->foreign('kode_bahan_baku')
+                ->references('kode_bahan_baku')
+                ->on('tbahanbakus')
+                ->onDelete('cascade');
         });
     }
 

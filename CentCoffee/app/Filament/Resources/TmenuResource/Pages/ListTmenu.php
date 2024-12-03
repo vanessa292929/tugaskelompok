@@ -24,6 +24,7 @@ class ListTmenu extends ListRecords
         ];
     }
 
+
     public function cetakLaporanPerformaMenu()
     {
         $data = \App\Models\Tmenu::select(

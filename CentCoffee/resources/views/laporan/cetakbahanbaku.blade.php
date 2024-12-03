@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Laporan Analisis Pemakaian dan Pengadaan Bahan Baku</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Bahan Baku Individu</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         table, th, td {
             border: 1px solid black;
@@ -14,28 +21,32 @@
             padding: 8px;
             text-align: left;
         }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h1>Laporan Analisis Pemakaian dan Pengadaan Bahan Baku</h1>
+    <h1>Laporan Bahan Baku Individu</h1>
     <table>
         <thead>
             <tr>
                 <th>Kode Bahan Baku</th>
                 <th>Nama Bahan Baku</th>
-                <th>Stok Saat Ini</th>
-                <th>Jumlah Pengadaan</th>
-                <th>Jumlah Pemakaian di Menu</th>
+                <th>Stok</th>
+                <th>Satuan</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $bahanbaku)
+            @foreach ($data as $bahanBaku)
                 <tr>
-                    <td>{{ $bahanbaku->kode_bahan_baku }}</td>
-                    <td>{{ $bahanbaku->nama_bahan_baku }}</td>
-                    <td>{{ $bahanbaku->stok_bahan_baku }} {{ $bahanbaku->satuan_bahan_baku }}</td>
-                    <td>{{ $bahanbaku->jumlah_pengadaan }} {{ $bahanbaku->satuan_bahan_baku }}</td>
-                    <td>{{ $bahanbaku->jumlah_pemakaian }} {{ $bahanbaku->satuan_bahan_baku }}</td>
+                    <td>{{ $bahanBaku->kode_bahan_baku }}</td>
+                    <td>{{ $bahanBaku->nama_bahan_baku }}</td>
+                    <td>{{ $bahanBaku->stok_bahan_baku }}</td>
+                    <td>{{ $bahanBaku->satuan_bahan_baku }}</td>
                 </tr>
             @endforeach
         </tbody>

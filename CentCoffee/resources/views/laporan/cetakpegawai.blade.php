@@ -41,7 +41,7 @@
                     <td>{{ $pegawai->nama_pegawai }}</td>
                     <td>{{ $pegawai->jumlah_transaksi }}</td>
                     <td>{{ $pegawai->total_penjualan }}</td>
-                    <td>{{ $pegawai->menu_terbanyak}}</td>
+                    <td>{{ $pegawai->menu_terbanyak }}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -9,19 +9,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tpesanandetails', function (Blueprint $table) {
-            $table->char('kode_pesanan_detail', 10)->primary();
-            $table->char('kode_menu', 15); // Foreign key ke tmenus
+            $table->char('kode_pesanan_detail', 15)->primary();
             $table->char('kode_pesanan', 15); // Foreign key ke tpesanans
+            $table->char('kode_menu', 15);    // Foreign key ke tmenus
             $table->integer('jumlah_pesanan_detail');
-            $table->enum('status_pesanan_detail', ['P', 'D']);
-            $table->bigInteger('total_harga'); // Gunakan bigInteger untuk total harga tanpa desimal
+            $table->char('status_pesanan_detail', 1);
+            $table->decimal('total_harga', 15, 2);
             $table->timestamps();
 
-            $table->foreign('kode_menu')->references('kode_menu')->on('tmenus');
-            $table->foreign('kode_pesanan')->references('kode_pesanan')->on('tpesanans');
+            $table->foreign('kode_pesanan')
+                ->references('kode_pesanan')
+                ->on('tpesanans')
+                ->onDelete('cascade'); // Tambahkan ini
+
+            $table->foreign('kode_menu')
+                ->references('kode_menu')
+                ->on('tmenus');
         });
     }
-
 
     public function down(): void
     {
