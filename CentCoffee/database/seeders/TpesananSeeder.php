@@ -143,6 +143,7 @@ class TpesananSeeder extends Seeder
                 'status_pesanan' => 'D',
                 'kode_pegawai' => 'PG009',
             ],
+            
         ];
 
         foreach ($pesananData as $pesanan) {

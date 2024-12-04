@@ -3,16 +3,38 @@
 <head>
     <title>Laporan Performa Menu dan Penggunaan Bahan Baku</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         table, th, td {
             border: 1px solid black;
         }
-        th, td {
-            padding: 8px;
+        th {
+            background-color: #f2f2f2;
+            color: #000;
+            text-align: center;
+            font-weight: bold;
+        }
+        td {
             text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #eaeaea;
         }
     </style>
 </head>

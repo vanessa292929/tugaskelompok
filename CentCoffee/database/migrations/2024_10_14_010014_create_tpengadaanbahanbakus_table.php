@@ -17,12 +17,19 @@ return new class extends Migration
             $table->enum('status_pengadaan_bahan_baku', ['Pending', 'Selesai']);
             $table->char('kode_pegawai', 15); // Foreign key ke tpegawais
             $table->char('kode_bahan_baku', 15); // Foreign key ke tbahanbakus
-            $table->integer('jumlah_pengadaan'); 
-        
-            $table->foreign('kode_pegawai')->references('kode_pegawai')->on('tpegawais');
-            $table->foreign('kode_bahan_baku')->references('kode_bahan_baku')->on('tbahanbakus');
+            $table->integer('jumlah_pengadaan');
+
+            // Menambahkan onDelete('cascade') untuk foreign key
+            $table->foreign('kode_pegawai')
+                ->references('kode_pegawai')
+                ->on('tpegawais')
+                ->onDelete('cascade');
+            
+            $table->foreign('kode_bahan_baku')
+                ->references('kode_bahan_baku')
+                ->on('tbahanbakus')
+                ->onDelete('cascade');
         });
-        
     }
 
     public function down(): void

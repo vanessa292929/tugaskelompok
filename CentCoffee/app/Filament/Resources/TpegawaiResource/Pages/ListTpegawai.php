@@ -24,37 +24,31 @@ class ListTpegawai extends ListRecords
         ];
     }
 
-    public function cetakLaporanKinerjaPegawai()
+    public static function cetakLaporanKinerjaPegawai()
     {
-        try {
-            // Ambil data dari tabel yang dibutuhkan untuk laporan
-            $data = \App\Models\tpegawai::select(
-                'tpegawais.kode_pegawai',
-                'tpegawais.nama_pegawai',
-                \DB::raw('COUNT(tpesanans.kode_pegawai) AS jumlah_transaksi'),
-                \DB::raw('SUM(tpesanandetails.total_harga) AS total_penjualan'),
-                \DB::raw('MAX(menu.nama_menu) AS menu_terbanyak')
-            )
-            ->leftJoin('tpesanans', 'tpegawais.kode_pegawai', '=', 'tpesanans.kode_pegawai')
-            ->leftJoin('tpesanandetails', 'tpesanans.kode_pesanan', '=', 'tpesanandetails.kode_pesanan')
-            ->leftJoin('tmenus as menu', 'tpesanandetails.kode_menu', '=', 'menu.kode_menu')
-            ->groupBy('tpegawais.kode_pegawai', 'tpegawais.nama_pegawai')
-            ->get();
+        // Ambil data dari database
+        $data = \DB::select("
+            SELECT 
+                p.kode_pegawai AS kode_pegawai,
+                p.nama_pegawai AS nama_pegawai,
+                COUNT(ps.kode_pegawai) AS jumlah_transaksi,
+                SUM(pd.total_harga) AS total_penjualan,
+                MAX(m.nama_menu) AS menu_terbanyak
+            FROM tpegawais p
+            LEFT JOIN tpesanans ps ON p.kode_pegawai = ps.kode_pegawai
+            LEFT JOIN tpesanandetails pd ON ps.kode_pesanan = pd.kode_pesanan
+            LEFT JOIN tmenus m ON pd.kode_menu = m.kode_menu
+            GROUP BY p.kode_pegawai, p.nama_pegawai
+            ORDER BY total_penjualan DESC
+        ");
 
-            // Debug data untuk memastikan ada data
-            if ($data->isEmpty()) {
-                throw new \Exception('Data laporan kosong. Tidak ada transaksi yang ditemukan.');
-            }
+        // Load view untuk cetak PDF
+        $pdf = \PDF::loadView('laporan.cetakpegawai', ['data' => $data]);
 
-            // Proses PDF dengan data yang sudah diambil
-            $pdf = \PDF::loadView('laporan.cetakpegawai', ['data' => $data]);
-
-            // Menghasilkan file PDF untuk diunduh
-            return response()->streamDownload(fn() => print($pdf->output()), 'laporan-kinerja-pegawai.pdf');
-        } catch (\Exception $e) {
-            // Tangkap error dan kembalikan pesan error ke pengguna
-            session()->flash('error', 'Gagal mencetak laporan: ' . $e->getMessage());
-            return redirect()->back();
-        }
+        // Unduh file PDF
+        return response()->streamDownload(
+            fn() => print($pdf->output()),
+            'laporan-kinerja-pegawai.pdf'
+        );
     }
 }
