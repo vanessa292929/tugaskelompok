@@ -18,7 +18,6 @@ return new class extends Migration
 
             $table->foreign('kode_menu')->references('kode_menu')->on('tmenus')->onDelete('cascade');
 
-
             $table->foreign('kode_bahan_baku')
                 ->references('kode_bahan_baku')
                 ->on('tbahanbakus')
