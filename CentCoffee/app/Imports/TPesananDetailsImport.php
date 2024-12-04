@@ -16,16 +16,29 @@ class TPesananDetailsImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        Tpesanandetail::updateOrCreate(
-            ['kode_pesanan_detail' => $row['kode_pesanan_detail']], 
-            [
-                'kode_menu' => $row['kode_menu'], 
-                'kode_pesanan' => $row['kode_pesanan'], 
-                'jumlah_pesanan_detail' => $row['jumlah_pesanan_detail'], 
-                'status_pesanan_detail' => $row['status_pesanan_detail'], 
-                'total_harga' => $row['total_harga'], 
-            ]
-        );
+        // Validasi data
+        if (empty($row['kode_pesanan_detail']) || empty($row['kode_menu']) || empty($row['kode_pesanan'])) {
+            // Mengabaikan baris yang tidak lengkap
+            return null;
+        }
+
+        try {
+            Tpesanandetail::updateOrCreate(
+                ['kode_pesanan_detail' => $row['kode_pesanan_detail']], 
+                [
+                    'kode_menu' => $row['kode_menu'], 
+                    'kode_pesanan' => $row['kode_pesanan'], 
+                    'jumlah_pesanan_detail' => $row['jumlah_pesanan_detail'], 
+                    'status_pesanan_detail' => $row['status_pesanan_detail'], 
+                    'total_harga' => $row['total_harga'], 
+                ]
+            );
+        } catch (\Exception $e) {
+            // Tangani error jika ada
+            Log::error("Error importing row: " . $e->getMessage());
+            return null;
+        }
+
         return null;
     }
 }

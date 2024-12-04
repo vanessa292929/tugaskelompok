@@ -43,7 +43,7 @@ class TmenuResource extends Resource
                 Forms\Components\TextInput::make('harga_menu')
                     ->label('Harga Menu')
                     ->required()
-                    ->numeric(),
+                    ->maxLength(50),
                 Forms\Components\Textarea::make('deskripsi_menu')
                     ->label('Deskripsi Menu')
                     ->required(),
@@ -51,6 +51,7 @@ class TmenuResource extends Resource
                     ->label('Gambar Menu')
                     ->disk('public')
                     ->directory('images/menu')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png'])
                     ->required(),
                 Forms\Components\TextInput::make('kode_pegawai')
                     ->label('Kode Pegawai')

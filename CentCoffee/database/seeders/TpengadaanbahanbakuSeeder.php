@@ -13,7 +13,7 @@ class TpengadaanbahanbakuSeeder extends Seeder
      */
     public function run(): void
     {
-
+        // Data untuk tabel tpengadaanbahanbaku
         $pengadaanBahanBakuData = [
             [
                 'kode_pengadaan_bahan_baku' => 'PBB003',

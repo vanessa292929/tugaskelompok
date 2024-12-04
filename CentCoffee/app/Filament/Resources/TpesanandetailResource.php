@@ -64,7 +64,6 @@ class TpesanandetailResource extends Resource
                 Forms\Components\TextInput::make('total_harga')
                     ->label('Total Harga')
                     ->required()
-                    ->numeric()
                     ->minValue(0),
             ]);
     }
@@ -97,7 +96,6 @@ class TpesanandetailResource extends Resource
                     ->label('Total Harga')
                     ->sortable()
                     ->searchable()
-                    ->money('IDR', true),
             ])
             ->filters([])
             ->headerActions([

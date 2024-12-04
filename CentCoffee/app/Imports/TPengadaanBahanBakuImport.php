@@ -15,6 +15,8 @@ class TPengadaanBahanBakuImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        \Log::info('Row Data:', $row);
+
         TPengadaanBahanBaku::updateOrCreate(
             ['kode_pengadaan_bahan_baku' => $row['kode_pengadaan_bahan_baku']], 
             [
