@@ -37,10 +37,10 @@ class TpesananResource extends Resource
                 Forms\Components\TextInput::make('kode_pesanan')
                     ->label('Kode Pesanan')
                     ->required(),
-                Forms\Components\Select::make('nama_menu')
+                Forms\Components\TextInput::make('nama_menu')
                     ->label('Menu')
-                    ->searchable()
-                    ->required(),
+                    ->required()
+                    ->maxLength(50),
                 Forms\Components\DatePicker::make('tanggal_pesanan')
                     ->label('Tanggal Pesanan')
                     ->required()
