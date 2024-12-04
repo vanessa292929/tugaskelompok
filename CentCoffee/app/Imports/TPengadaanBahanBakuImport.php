@@ -15,22 +15,19 @@ class TPengadaanBahanBakuImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        // Gunakan updateOrCreate untuk menghindari duplikasi
         TPengadaanBahanBaku::updateOrCreate(
-            ['kode_pengadaan_bahan_baku' => $row['kode_pengadaan_bahan_baku']], // Kondisi unik berdasarkan kode_pengadaan_bahan_baku
+            ['kode_pengadaan_bahan_baku' => $row['kode_pengadaan_bahan_baku']], 
             [
-                'subjek_pengadaan_bahan_baku' => $row['subjek_pengadaan_bahan_baku'], // Subjek pengadaan
-                'tanggal_pengadaan_bahan_baku' => $row['tanggal_pengadaan_bahan_baku'], // Tanggal pengadaan
-                'waktu_pengadaan_bahan_baku' => $row['waktu_pengadaan_bahan_baku'], // Waktu pengadaan
-                'catatan_pengadaan_bahan_baku' => $row['catatan_pengadaan_bahan_baku'], // Catatan
-                'status_pengadaan_bahan_baku' => $row['status_pengadaan_bahan_baku'], // Status pengadaan
-                'jumlah_pengadaan' => $row['jumlah_pengadaan'], // Jumlah pengadaan
-                'kode_pegawai' => $row['kode_pegawai'], // Kode pegawai
-                'kode_bahan_baku' => $row['kode_bahan_baku'], // Kode bahan baku
+                'subjek_pengadaan_bahan_baku' => $row['subjek_pengadaan_bahan_baku'], 
+                'tanggal_pengadaan_bahan_baku' => $row['tanggal_pengadaan_bahan_baku'], 
+                'waktu_pengadaan_bahan_baku' => $row['waktu_pengadaan_bahan_baku'], 
+                'catatan_pengadaan_bahan_baku' => $row['catatan_pengadaan_bahan_baku'], 
+                'status_pengadaan_bahan_baku' => $row['status_pengadaan_bahan_baku'], 
+                'jumlah_pengadaan' => $row['jumlah_pengadaan'], 
+                'kode_pegawai' => $row['kode_pegawai'], 
+                'kode_bahan_baku' => $row['kode_bahan_baku'], 
             ]
         );
-
-        // Return null karena `updateOrCreate` sudah menangani data
         return null;
     }
 }

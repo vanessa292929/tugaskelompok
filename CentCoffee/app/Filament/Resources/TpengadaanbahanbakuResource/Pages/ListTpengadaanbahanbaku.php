@@ -26,13 +26,10 @@ class ListTpengadaanbahanbaku extends ListRecords
 
     public static function cetakLaporan()
     {
-        // Ambil data pengadaan bahan baku
         $data = \App\Models\Tpengadaanbahanbaku::all();
 
-        // Load view untuk cetak PDF
         $pdf = \PDF::loadView('laporan.cetakpengadaanbahanbaku', ['data' => $data]);
 
-        // Unduh file PDF
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'laporan-pengadaan-bahan-baku.pdf'

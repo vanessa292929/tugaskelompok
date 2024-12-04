@@ -17,7 +17,7 @@ class ListTbahanbaku extends ListRecords
             Actions\Action::make('cetakLaporanAnalisisBahanBaku')
                 ->label('Cetak Analisis Pemakaian dan Pengadaan')
                 ->icon('heroicon-o-printer')
-                ->action(fn() => $this->cetakFinal()) // Menggunakan metode cetakFinal
+                ->action(fn() => $this->cetakFinal()) 
                 ->requiresConfirmation()
                 ->modalHeading('Cetak Laporan Analisis Bahan Baku')
                 ->modalSubheading('Apakah Anda yakin ingin mencetak laporan analisis bahan baku ini?'),
@@ -26,7 +26,7 @@ class ListTbahanbaku extends ListRecords
 
     public static function cetakFinal()
     {
-        // Ambil data laporan gabungan
+       
         $data = \DB::select("
             SELECT 
                 bb.kode_bahan_baku AS kode_bahan_baku,
@@ -42,13 +42,11 @@ class ListTbahanbaku extends ListRecords
             ORDER BY jumlah_pemakaian DESC
         ");
 
-        // Load view untuk cetak PDF
         $pdf = \PDF::loadView('laporan.cetakbahanbakugabungan', ['data' => $data]);
 
-        // Unduh file PDF
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'laporan-analisis-bahan-baku-gabungan.pdf'
         );
     }
-    }
+}

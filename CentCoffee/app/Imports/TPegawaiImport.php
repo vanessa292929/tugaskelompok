@@ -10,18 +10,17 @@ class TPegawaiImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        // Gunakan updateOrCreate untuk menghindari duplikasi data
+        // updateOrCreate untuk menghindari duplikasi data
         Tpegawai::updateOrCreate(
-            ['kode_pegawai' => $row['kode_pegawai']], // Kondisi unik berdasarkan kode_pegawai
+            ['kode_pegawai' => $row['kode_pegawai']], 
             [
-                'kata_sandi' => $row['kata_sandi'], // Kata sandi
-                'nama_pegawai' => $row['nama_pegawai'], // Nama pegawai
-                'jenis_kelamin_pegawai' => $row['jenis_kelamin_pegawai'], // Jenis kelamin
-                'menu_terbanyak' => $row['menu_terbanyak'], // Menu terbanyak
+                'kata_sandi' => $row['kata_sandi'], 
+                'nama_pegawai' => $row['nama_pegawai'], 
+                'jenis_kelamin_pegawai' => $row['jenis_kelamin_pegawai'], 
+                'menu_terbanyak' => $row['menu_terbanyak'], 
             ]
         );
 
-        // Kembalikan null untuk menghindari duplikasi di proses import
         return null;
     }
 }

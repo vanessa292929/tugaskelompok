@@ -26,14 +26,10 @@ class ListTMenuDetail extends ListRecords
 
     public static function cetakLaporan()
     {
-        // Ambil data menu detail dengan relasi
         $data = \App\Models\Tmenudetail::with(['menu', 'bahanBaku'])->get();
 
-
-        // Load view untuk cetak PDF
         $pdf = \PDF::loadView('laporan.cetakmenudetail', ['data' => $data]);
 
-        // Unduh file PDF
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'laporan-menu-detail.pdf'

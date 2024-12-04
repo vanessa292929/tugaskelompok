@@ -13,8 +13,8 @@ class ListTpesanandetail extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(), // Tombol New
-            Actions\Action::make('cetak_laporan') // Tombol Cetak Laporan
+            Actions\CreateAction::make(), 
+            Actions\Action::make('cetak_laporan') 
                 ->label('Cetak Laporan')
                 ->icon('heroicon-o-printer')
                 ->action(fn() => static::cetakLaporan())
@@ -26,13 +26,10 @@ class ListTpesanandetail extends ListRecords
 
     public static function cetakLaporan()
     {
-        // Ambil data detail pesanan beserta relasi ke tabel menu
         $data = \App\Models\Tpesanandetail::with('menu')->get();
 
-        // Load view untuk cetak PDF
         $pdf = \PDF::loadView('laporan.cetakpesanandetail', ['data' => $data]);
 
-        // Unduh file PDF
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'laporan-detail-pesanan.pdf'

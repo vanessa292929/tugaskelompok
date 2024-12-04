@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('kode_pesanan')
                 ->references('kode_pesanan')
                 ->on('tpesanans')
-                ->onDelete('cascade'); // Tambahkan ini
+                ->onDelete('cascade'); 
 
             $table->foreign('kode_menu')
                 ->references('kode_menu')

@@ -27,13 +27,13 @@ class ListTpesanan extends ListRecords
     public function getBulkActions(): array
     {
         return [
-            Actions\DeleteBulkAction::make(), // Tombol Delete
+            Actions\DeleteBulkAction::make(), 
         ];
     }
     public function getTableActions(): array
     {
         return [
-            Actions\EditAction::make(), // Tambahkan tombol Edit
+            Actions\EditAction::make(), 
         ];
     }
 
@@ -43,7 +43,6 @@ class ListTpesanan extends ListRecords
 
         $pdf = \PDF::loadView('laporan.cetakpesanan', ['data' => $data]);
 
-        // Unduh file PDF
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'laporan-pesanan.pdf'

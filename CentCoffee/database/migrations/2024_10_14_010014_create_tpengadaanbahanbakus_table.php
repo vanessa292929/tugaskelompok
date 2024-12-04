@@ -19,7 +19,7 @@ return new class extends Migration
             $table->char('kode_bahan_baku', 15); // Foreign key ke tbahanbakus
             $table->integer('jumlah_pengadaan');
 
-            // Menambahkan onDelete('cascade') untuk foreign key
+           
             $table->foreign('kode_pegawai')
                 ->references('kode_pegawai')
                 ->on('tpegawais')

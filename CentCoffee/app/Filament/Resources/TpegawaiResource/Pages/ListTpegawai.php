@@ -26,7 +26,7 @@ class ListTpegawai extends ListRecords
 
     public static function cetakLaporanKinerjaPegawai()
     {
-        // Ambil data dari database
+        
         $data = \DB::select("
             SELECT 
                 p.kode_pegawai AS kode_pegawai,
@@ -42,10 +42,8 @@ class ListTpegawai extends ListRecords
             ORDER BY total_penjualan DESC
         ");
 
-        // Load view untuk cetak PDF
         $pdf = \PDF::loadView('laporan.cetakpegawai', ['data' => $data]);
 
-        // Unduh file PDF
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'laporan-kinerja-pegawai.pdf'

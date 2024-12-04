@@ -1,56 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Analisis Pemakaian dan Pengadaan Bahan Baku</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 20px;
             color: #333;
         }
+
         h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #555;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            color: #000;
         }
+
+        .subtitle {
+            font-size: 14px;
+            margin: 5px 0 0 0;
+            color: #000;
+        }
+
+        .period {
+            font-size: 12px;
+            color: #555;
+            margin: 0;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 20px;
         }
+
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid black;
         }
+
         th {
             background-color: #f2f2f2;
-            color: #333;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-        td {
+            color: #000;
+            text-align: center;
+            font-weight: bold;
             font-size: 13px;
-            color: #555;
         }
-        th, td {
-            padding: 10px;
+
+        td {
             text-align: left;
+            padding: 8px;
+            font-size: 12px;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         tr:hover {
-            background-color: #f1f1f1;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #777;
+            background-color: #eaeaea;
         }
     </style>
 </head>
 <body>
+
     <h1>Laporan Analisis Pemakaian dan Pengadaan Bahan Baku</h1>
+    <div class="subtitle">PT. CentCoffee</div>
+    <div class="period">Periode: 2023-2024</div>
+    <div class="period">Tanggal Cetak: {{ now()->format('d F Y') }}</div>
+
     <table>
         <thead>
             <tr>
@@ -73,8 +92,6 @@
             @endforeach
         </tbody>
     </table>
-    <div class="footer">
-        <p>Generated on {{ now()->format('d M Y') }}</p>
-    </div>
+
 </body>
 </html>

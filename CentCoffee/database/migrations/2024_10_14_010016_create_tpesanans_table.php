@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('tpesanans', function (Blueprint $table) {
             $table->char('kode_pesanan', 15)->primary();
-            $table->char('nama_menu', 50); // Kolom untuk nama menu
+            $table->char('nama_menu', 50); 
             $table->date('tanggal_pesanan');
             $table->time('waktu_pesanan');
             $table->char('pembeli_pesanan', 50);

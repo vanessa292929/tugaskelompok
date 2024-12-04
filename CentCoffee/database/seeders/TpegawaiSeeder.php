@@ -86,11 +86,10 @@ class TpegawaiSeeder extends Seeder
             ],
         ];
 
-        // Pastikan data baru diinsert tanpa duplikasi
         foreach ($pegawaiData as $pegawai) {
             Tpegawai::updateOrCreate(
-                ['kode_pegawai' => $pegawai['kode_pegawai']], // Kondisi unik
-                $pegawai // Data yang akan diupdate atau disisipkan
+                ['kode_pegawai' => $pegawai['kode_pegawai']], 
+                $pegawai 
             );
         }
     }

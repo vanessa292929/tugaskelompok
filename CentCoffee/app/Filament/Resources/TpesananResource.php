@@ -117,10 +117,10 @@ class TpesananResource extends Resource
                             ->disk('public') 
                             ->directory('imports') 
                             ->acceptedFileTypes([
-                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
-                                'application/vnd.ms-excel', // .xls
-                                'application/octet-stream', // Beberapa browser membaca file sebagai octet-stream
-                                'application/vnd.ms-office' // Format umum lainnya untuk Excel
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
+                                'application/vnd.ms-excel', 
+                                'application/octet-stream', 
+                                'application/vnd.ms-office' 
                             ])
                             ->required(),
                     ])

@@ -28,7 +28,7 @@ class ListTmenu extends ListRecords
     public function getTableActions(): array
     {
         return [
-            DeleteAction::make(), // Menambahkan aksi delete per baris
+            DeleteAction::make(), 
         ];
     }
 

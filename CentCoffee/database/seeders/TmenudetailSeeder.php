@@ -94,10 +94,9 @@ class TmenudetailSeeder extends Seeder
         ];
 
         foreach ($menuDetailData as $menuDetail) {
-            // Pastikan untuk menambahkan data menggunakan updateOrCreate
             Tmenudetail::updateOrCreate(
-                ['kode_menu_detail' => $menuDetail['kode_menu_detail']], // Menggunakan kode_menu_detail sebagai kunci unik
-                $menuDetail // Data yang akan disisipkan
+                ['kode_menu_detail' => $menuDetail['kode_menu_detail']], 
+                $menuDetail 
             );
         }
     }

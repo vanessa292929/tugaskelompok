@@ -22,7 +22,7 @@ class tpesanan extends Model
         'kode_pegawai',        
     ];
 
-    protected $primaryKey = 'kode_pesanan'; // Primary key tabel
-    public $incrementing = false; // Non-auto increment untuk primary key
-    public $timestamps = false;   // Tidak menggunakan kolom timestamps
+    protected $primaryKey = 'kode_pesanan'; 
+    public $incrementing = false; 
+    public $timestamps = false;   
 }

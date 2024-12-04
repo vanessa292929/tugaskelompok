@@ -13,7 +13,7 @@ return new class extends Migration
             $table->char('kata_sandi', 100);
             $table->char('nama_pegawai', 50);
             $table->enum('jenis_kelamin_pegawai', ['L', 'P']);
-            $table->string('menu_terbanyak', 100)->nullable(); // Kolom baru untuk menu yang paling banyak terjual
+            $table->string('menu_terbanyak', 100)->nullable(); 
             $table->timestamps();
         });
     }

@@ -9,19 +9,13 @@ class Tmenudetail extends Model
 {
     use HasFactory;
 
-    // Menentukan nama tabel
     protected $table = 'tmenudetails';
 
-    // Menentukan primary key
     protected $primaryKey = 'kode_menu_detail';
 
-    // Menonaktifkan auto-increment pada primary key
     public $incrementing = false;
-
-    // Menentukan tipe data primary key
     protected $keyType = 'char';
 
-    // Kolom yang dapat diisi secara massal
     protected $fillable = [
         'kode_menu_detail',
         'jumlah_bahan_baku_detail',

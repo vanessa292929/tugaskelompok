@@ -9,20 +9,17 @@ class Tpesanandetail extends Model
 {
     use HasFactory;
 
-    // Kolom yang dapat diisi secara massal
     protected $fillable = [
         'kode_pesanan_detail',
         'kode_menu',
         'kode_pesanan',
         'jumlah_pesanan_detail',
         'status_pesanan_detail',
-        'total_harga', // Kolom baru yang ditambahkan
+        'total_harga', 
     ];
 
-    // Menentukan primary key
     protected $primaryKey = 'kode_pesanan_detail';
 
-    // Menonaktifkan auto-increment pada primary key
     public $incrementing = false;
 
     /**

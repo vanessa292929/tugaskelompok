@@ -21,12 +21,10 @@ class Tpegawai extends Model
         'menu_terbanyak', // Kolom baru yang nullable
     ];
 
-    // Menentukan primary key
     protected $primaryKey = 'kode_pegawai';
 
-    // Menonaktifkan auto-increment pada primary key
+  
     public $incrementing = false;
 
-    // Menentukan tipe data primary key
     protected $keyType = 'char';
 }

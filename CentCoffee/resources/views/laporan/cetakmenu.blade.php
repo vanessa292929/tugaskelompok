@@ -8,9 +8,22 @@
             margin: 20px;
         }
         h1 {
-            text-align: center;
-            font-size: 24px;
-            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            color: #000;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            margin-top: 5px;
+        }
+        .period {
+            font-size: 12px;
+            color: #555;
+            margin: 0;
+            margin-top: 10px;
         }
         table {
             width: 100%;
@@ -25,10 +38,12 @@
             color: #000;
             text-align: center;
             font-weight: bold;
+            font-size: 13px;
         }
         td {
             text-align: left;
             padding: 8px;
+            font-size: 12px;
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -40,6 +55,10 @@
 </head>
 <body>
     <h1>Laporan Performa Menu dan Penggunaan Bahan Baku</h1>
+    <div class="subtitle">PT. CentCoffee</div>
+    <div class="period">Periode: 2023-2024</div>
+    <div class="period">Tanggal Cetak: {{ now()->format('d F Y') }}</div>
+
     <table>
         <thead>
             <tr>

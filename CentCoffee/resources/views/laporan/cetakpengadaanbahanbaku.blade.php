@@ -11,37 +11,51 @@
             color: #333;
         }
 
-        h1 {
-            text-align: center;
-            font-size: 24px;
-            color: #333;
+        .header {
             margin-bottom: 20px;
         }
 
+        .header h1 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            color: #000;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            margin: 5px 0 0 0;
+            color: #000;
+        }
+
+        .header .period {
+            font-size: 12px;
+            color: #555;
+            margin: 0;
+        }
+
         table {
-            width: 80%; /* Menyesuaikan lebar tabel */
+            width: 100%;
             border-collapse: collapse;
-            margin: 0 auto; /* Memusatkan tabel */
+            margin-top: 20px;
         }
 
         table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
+            border: 1px solid black;
         }
 
         th {
-            background-color: #f2f2f2; /* Warna latar belakang header */
+            background-color: #f2f2f2;
             color: #333;
-            font-size: 14px;
+            text-align: center;
             font-weight: bold;
+            font-size: 13px;
         }
 
         td {
-            font-size: 14px;
+            text-align: left;
+            padding: 8px;
+            font-size: 12px;
         }
 
         tr:nth-child(even) {
@@ -49,28 +63,18 @@
         }
 
         tr:hover {
-            background-color: #e1f5e1;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .currency {
-            text-align: right;
-        }
-
-        .date {
-            text-align: center;
+            background-color: #eaeaea;
         }
     </style>
 </head>
 <body>
-    <h1>Laporan Pengadaan Bahan Baku</h1>
+
+    <div class="header">
+        <h1>Laporan Pengadaan Bahan Baku</h1>
+        <div class="subtitle">PT. CentCoffee</div>
+        <div class="period">Periode: 2023-2024</div>
+        <div class="period">Tanggal Cetak: {{ now()->format('d F Y') }}</div>
+    </div>
     <table>
         <thead>
             <tr>

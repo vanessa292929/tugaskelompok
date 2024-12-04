@@ -13,7 +13,7 @@ class TpengadaanbahanbakuSeeder extends Seeder
      */
     public function run(): void
     {
-        // Data untuk tabel tpengadaanbahanbaku
+
         $pengadaanBahanBakuData = [
             [
                 'kode_pengadaan_bahan_baku' => 'PBB003',
@@ -48,7 +48,7 @@ class TpengadaanbahanbakuSeeder extends Seeder
                 'kode_pegawai' => 'PG003',
                 'kode_bahan_baku' => 'BB004',
             ],
-            // Menambahkan data untuk gula pasir dengan jumlah pengadaan yang benar (200 kg)
+            
             [
                 'kode_pengadaan_bahan_baku' => 'PBB006',
                 'subjek_pengadaan_bahan_baku' => 'Pembelian Gula Pasir',
@@ -56,7 +56,7 @@ class TpengadaanbahanbakuSeeder extends Seeder
                 'waktu_pengadaan_bahan_baku' => '15:00:00',
                 'catatan_pengadaan_bahan_baku' => 'Membeli 200 kg gula pasir dari Toko D',
                 'status_pengadaan_bahan_baku' => 'Selesai',
-                'jumlah_pengadaan' => 50,  // Mengubah jumlah pengadaan menjadi 200
+                'jumlah_pengadaan' => 50,  
                 'kode_pegawai' => 'PG003',
                 'kode_bahan_baku' => 'BB002',
             ],
@@ -73,11 +73,10 @@ class TpengadaanbahanbakuSeeder extends Seeder
             ],
         ];
 
-        // Proses insert data dengan updateOrCreate untuk menghindari duplikat
         foreach ($pengadaanBahanBakuData as $pengadaanBahanBaku) {
             Tpengadaanbahanbaku::updateOrCreate(
-                ['kode_pengadaan_bahan_baku' => $pengadaanBahanBaku['kode_pengadaan_bahan_baku']], // Menggunakan kode_pengadaan_bahan_baku sebagai kunci unik
-                $pengadaanBahanBaku // Data yang akan disisipkan atau diperbarui
+                ['kode_pengadaan_bahan_baku' => $pengadaanBahanBaku['kode_pengadaan_bahan_baku']],
+                $pengadaanBahanBaku 
             );
         }
     }
